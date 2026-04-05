@@ -3,367 +3,285 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ozodbek Yusupov</title>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Lora:ital,wght@0,400;1,400&display=swap" rel="stylesheet" />
+  <title>Ozodiy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f4f1ec;
-      --text: #111;
-      --muted: #999;
-      --accent: #b5410a;
-      --border: #ddd8d0;
+      --bg: #fafaf8;
+      --text: #0f0f0f;
+      --muted: #888;
+      --orange: #e05c00;
+      --border: #e8e6e1;
     }
-
-    html { scroll-behavior: smooth; }
 
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'Lora', Georgia, serif;
-      font-size: 17px;
-      line-height: 1.75;
+      font-family: 'Instrument Sans', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
     }
 
-    /* HEADER */
+    a { text-decoration: none; color: inherit; }
+
     header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 28px 56px;
+      padding: 0 48px;
+      height: 56px;
       border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       background: var(--bg);
-      z-index: 10;
+      z-index: 100;
     }
 
     .logo {
-      font-family: 'Syne', sans-serif;
+      font-size: 15px;
       font-weight: 700;
-      font-size: 17px;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: var(--text);
       cursor: pointer;
-      text-decoration: none;
+      color: var(--text);
     }
 
-    .logo span { color: var(--accent); }
+    .logo span { color: var(--orange); }
 
-    nav { display: flex; gap: 32px; align-items: center; }
+    nav { display: flex; align-items: center; gap: 4px; }
 
     nav a {
-      font-family: 'Syne', sans-serif;
       font-size: 13px;
       font-weight: 500;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
       color: var(--muted);
-      text-decoration: none;
-      transition: color 0.15s;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
       cursor: pointer;
     }
 
-    nav a:hover { color: var(--text); }
-    nav a.active { color: var(--accent); }
+    nav a:hover { color: var(--text); background: #f0ede8; }
+    nav a.active { color: var(--orange); }
 
-    /* SECTIONS */
     section { display: none; }
     section.active { display: block; }
 
-    /* HOME */
-    .home-wrap {
-      max-width: 780px;
+    .wrap {
+      max-width: 800px;
       margin: 0 auto;
-      padding: 96px 56px 80px;
+      padding: 64px 48px 96px;
     }
 
-    .home-tag {
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.16em;
+    .home-hero { padding-top: 16px; margin-bottom: 64px; }
+
+    .home-name {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .home-h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 56px;
+      font-weight: 400;
+      line-height: 1.08;
+      letter-spacing: -0.02em;
       margin-bottom: 28px;
     }
 
-    .home-headline {
-      font-family: 'Syne', sans-serif;
-      font-size: 52px;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      margin-bottom: 32px;
-    }
-
-    .home-headline em {
-      font-family: 'Lora', serif;
-      font-style: italic;
-      font-weight: 400;
-      color: var(--accent);
-      font-size: 54px;
-    }
+    .home-h1 .orange { font-style: italic; color: var(--orange); }
 
     .home-bio {
       font-size: 17px;
       color: #555;
-      max-width: 520px;
-      margin-bottom: 48px;
-      line-height: 1.8;
+      max-width: 500px;
+      line-height: 1.75;
+      margin-bottom: 36px;
     }
 
-    .home-actions {
-      display: flex;
-      gap: 0;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      overflow: hidden;
-      width: fit-content;
-    }
+    .home-nav-pills { display: flex; flex-wrap: wrap; gap: 8px; }
 
-    .home-actions a {
-      font-family: 'Syne', sans-serif;
-      font-size: 12px;
+    .pill {
+      font-size: 13px;
       font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
       color: var(--text);
-      text-decoration: none;
-      padding: 12px 24px;
-      border-right: 1px solid var(--border);
-      transition: background 0.15s, color 0.15s;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+
+    .pill:hover { border-color: var(--orange); color: var(--orange); }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 28px 20px;
+    }
+
+    .book-scene { perspective: 600px; }
+
+    .book-3d {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 2/3;
+      transform-style: preserve-3d;
+      transform: rotateY(-18deg);
+      transition: transform 0.35s ease;
       cursor: pointer;
     }
 
-    .home-actions a:last-child { border-right: none; }
-    .home-actions a:hover { background: var(--text); color: var(--bg); }
+    .book-scene:hover .book-3d { transform: rotateY(-4deg) translateY(-4px); }
 
-    .home-divider {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 72px 0 40px;
+    .book-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 2px 4px 4px 2px;
+      overflow: hidden;
+      box-shadow: 6px 6px 20px rgba(0,0,0,0.18), 2px 2px 6px rgba(0,0,0,0.10);
     }
 
-    .home-sub {
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 28px;
+    .book-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    .book-spine {
+      position: absolute;
+      top: 0;
+      left: -10px;
+      width: 10px;
+      height: 100%;
+      background: linear-gradient(to right, #bbb, #ddd);
+      transform: rotateY(-90deg);
+      transform-origin: right center;
+      border-radius: 2px 0 0 2px;
     }
 
-    /* BOOK GRID */
-    .book-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
-      gap: 20px;
-    }
-
-    .book-card { cursor: pointer; text-decoration: none; color: inherit; }
-
-    .book-cover {
+    .book-reflection {
+      position: absolute;
+      bottom: -36%;
+      left: 0;
       width: 100%;
-      aspect-ratio: 2/3;
-      object-fit: cover;
-      border-radius: 2px;
-      display: block;
-      background: var(--border);
-      box-shadow: 2px 4px 16px rgba(0,0,0,0.10);
-      transition: transform 0.2s, box-shadow 0.2s;
+      height: 36%;
+      overflow: hidden;
+      transform: scaleY(-1);
+      opacity: 0.18;
+      pointer-events: none;
     }
 
-    .book-card:hover .book-cover {
-      transform: translateY(-3px) rotate(-0.5deg);
-      box-shadow: 4px 8px 24px rgba(0,0,0,0.14);
-    }
+    .book-reflection img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
     .book-title-sm {
-      font-family: 'Syne', sans-serif;
       font-size: 11px;
-      margin-top: 8px;
+      font-weight: 500;
+      margin-top: 44px;
       line-height: 1.3;
       color: var(--muted);
     }
 
-    /* PAGE HEADER */
-    .page-wrap {
-      max-width: 780px;
-      margin: 0 auto;
-      padding: 72px 56px 100px;
-    }
-
-    .page-header {
+    .page-hd {
+      margin-bottom: 48px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
       display: flex;
       align-items: baseline;
-      gap: 20px;
-      margin-bottom: 56px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid var(--border);
+      gap: 16px;
     }
 
-    .page-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 36px;
-      font-weight: 700;
+    .page-hd h1 {
+      font-family: 'Instrument Serif', serif;
+      font-size: 40px;
+      font-weight: 400;
       letter-spacing: -0.02em;
     }
 
-    .page-count {
-      font-family: 'Syne', sans-serif;
-      font-size: 12px;
-      color: var(--muted);
-      letter-spacing: 0.06em;
-    }
+    .page-hd .count { font-size: 12px; color: var(--muted); font-weight: 500; }
 
-    /* WRITING */
     .writing-list { display: flex; flex-direction: column; }
 
-    .writing-row {
+    .writing-item {
       display: grid;
-      grid-template-columns: 1fr 120px;
+      grid-template-columns: 1fr auto;
       align-items: center;
       gap: 16px;
-      padding: 22px 0;
+      padding: 20px 0;
       border-bottom: 1px solid var(--border);
-      text-decoration: none;
-      color: inherit;
       cursor: pointer;
     }
 
-    .writing-row:hover .wr-title { color: var(--accent); }
+    .writing-item:first-child { border-top: 1px solid var(--border); }
+    .writing-item:hover .wi-title { color: var(--orange); }
 
-    .wr-title {
-      font-family: 'Lora', serif;
-      font-size: 19px;
-      line-height: 1.35;
-      transition: color 0.15s;
-    }
+    .wi-title { font-size: 17px; font-weight: 500; line-height: 1.35; transition: color 0.15s; }
+    .wi-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+    .wi-date { font-size: 12px; color: var(--muted); font-weight: 500; white-space: nowrap; }
 
-    .wr-tag {
-      font-family: 'Syne', sans-serif;
-      font-size: 10px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 5px;
-    }
+    .speaking-list { display: flex; flex-direction: column; gap: 40px; }
 
-    .wr-date {
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      color: var(--muted);
-      text-align: right;
-    }
+    .speaking-item { display: grid; grid-template-columns: 90px 1fr; gap: 24px; }
 
-    /* SPEAKING */
-    .speaking-list { display: flex; flex-direction: column; gap: 48px; }
+    .si-date { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; padding-top: 2px; }
+    .si-title { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
+    .si-desc { font-size: 15px; color: #666; line-height: 1.65; }
 
-    .speaking-row {
-      display: grid;
-      grid-template-columns: 100px 1fr;
-      gap: 32px;
-    }
+    .topic-list { display: flex; flex-direction: column; }
 
-    .sp-year {
-      font-family: 'Syne', sans-serif;
-      font-size: 11px;
-      letter-spacing: 0.1em;
-      color: var(--muted);
-      padding-top: 3px;
-    }
+    .topic-item { padding: 32px 0; border-bottom: 1px solid var(--border); }
+    .topic-item:first-child { border-top: 1px solid var(--border); }
 
-    .sp-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
+    .ti-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
+    .ti-title { font-family: 'Instrument Serif', serif; font-size: 24px; font-weight: 400; margin-bottom: 12px; letter-spacing: -0.01em; }
+    .ti-body { font-size: 15px; color: #555; max-width: 560px; line-height: 1.75; }
 
-    .sp-desc { font-size: 15px; color: #666; }
-
-    /* GEOPOLITICS / INVESTMENTS */
-    .topic-grid { display: flex; flex-direction: column; gap: 0; }
-
-    .topic-row {
-      padding: 32px 0;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .topic-row:first-child { border-top: 1px solid var(--border); }
-
-    .tr-label {
-      font-family: 'Syne', sans-serif;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 8px;
-    }
-
-    .tr-title {
-      font-family: 'Syne', sans-serif;
-      font-size: 22px;
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 12px;
-    }
-
-    .tr-body {
-      font-size: 16px;
-      color: #555;
-      max-width: 580px;
-      line-height: 1.75;
-    }
-
-    /* FOOTER */
     footer {
       border-top: 1px solid var(--border);
-      padding: 28px 56px;
+      padding: 24px 48px;
       display: flex;
       justify-content: space-between;
       align-items: center;
     }
 
-    .footer-name {
-      font-family: 'Syne', sans-serif;
-      font-size: 12px;
-      letter-spacing: 0.06em;
-      color: var(--muted);
-    }
+    .footer-brand { font-size: 13px; font-weight: 700; color: var(--text); }
+    .footer-brand span { color: var(--orange); }
 
-    .footer-links { display: flex; gap: 20px; }
+    .footer-links { display: flex; gap: 6px; }
 
     .footer-links a {
-      font-family: 'Syne', sans-serif;
-      font-size: 12px;
+      font-size: 13px;
+      font-weight: 500;
       color: var(--muted);
-      text-decoration: none;
-      letter-spacing: 0.04em;
-      transition: color 0.15s;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: color 0.15s, background 0.15s;
     }
 
-    .footer-links a:hover { color: var(--text); }
+    .footer-links a:hover { color: var(--text); background: #f0ede8; }
 
-    /* MOBILE */
     @media (max-width: 640px) {
-      header { padding: 20px 24px; flex-wrap: wrap; gap: 16px; }
-      nav { gap: 16px; flex-wrap: wrap; }
-      .home-wrap, .page-wrap { padding: 48px 24px 64px; }
-      .home-headline { font-size: 36px; }
-      .home-headline em { font-size: 38px; }
-      .speaking-row { grid-template-columns: 1fr; gap: 4px; }
-      footer { padding: 24px; flex-direction: column; gap: 12px; text-align: center; }
+      header { padding: 0 20px; }
+      .wrap { padding: 40px 20px 64px; }
+      .home-h1 { font-size: 38px; }
+      .speaking-item { grid-template-columns: 1fr; gap: 4px; }
+      footer { padding: 20px; flex-direction: column; gap: 12px; }
     }
   </style>
 </head>
 <body>
 
 <header>
-  <a class="logo" onclick="showSection('home')">Ozodbek<span>.</span></a>
+  <div class="logo" onclick="showSection('home')">Ozodiy<span>.</span></div>
   <nav>
     <a onclick="showSection('reading')"  id="nav-reading">Reading</a>
     <a onclick="showSection('writing')"  id="nav-writing">Writing</a>
@@ -375,36 +293,37 @@
 
 <!-- HOME -->
 <section id="home" class="active">
-  <div class="home-wrap">
-    <div class="home-tag">Tashkent → Amherst, MA &nbsp;·&nbsp; Class of 2029</div>
-    <h1 class="home-headline">
-      Thinking at the<br>
-      intersection of<br>
-      <em>markets &amp; power.</em>
-    </h1>
-    <p class="home-bio">
-      I'm Ozodbek — a first-year at Amherst studying Political Science and Economics.
-      I grew up in Uzbekistan, worked in the bazaar, coached students into top colleges,
-      and now I'm learning how capital moves through uncertain places.
-    </p>
-    <div class="home-actions">
-      <a onclick="showSection('reading')">Reading</a>
-      <a onclick="showSection('writing')">Writing</a>
-      <a onclick="showSection('invest')">Investments</a>
-      <a onclick="showSection('geo')">Geopolitics</a>
+  <div class="wrap">
+    <div class="home-hero">
+      <div class="home-name">Ozodbek Eshboboev</div>
+      <h1 class="home-h1">
+        Studying the logic<br>
+        of <span class="orange">geopolitics<br>
+        &amp; markets.</span>
+      </h1>
+      <p class="home-bio">
+        I study Political Science and Economics at Amherst. I am from Uzbekistan. I am trying to understand how wars and power shifts reshape Central Asian economies and security.
+      </p>
+      <div class="home-nav-pills">
+        <div class="pill" onclick="showSection('reading')">Reading</div>
+        <div class="pill" onclick="showSection('writing')">Writing</div>
+        <div class="pill" onclick="showSection('invest')">Investments</div>
+        <div class="pill" onclick="showSection('geo')">Geopolitics</div>
+        <div class="pill" onclick="showSection('speaking')">Speaking</div>
+      </div>
     </div>
-    <hr class="home-divider" />
-    <div class="home-sub">Recently read</div>
+
+    <div class="section-label">Recently read</div>
     <div class="book-grid" id="home-books"></div>
   </div>
 </section>
 
 <!-- READING -->
 <section id="reading">
-  <div class="page-wrap">
-    <div class="page-header">
-      <div class="page-title">Reading</div>
-      <div class="page-count" id="book-count"></div>
+  <div class="wrap">
+    <div class="page-hd">
+      <h1>Reading</h1>
+      <span class="count" id="book-count"></span>
     </div>
     <div class="book-grid" id="reading-books"></div>
   </div>
@@ -412,45 +331,43 @@
 
 <!-- WRITING -->
 <section id="writing">
-  <div class="page-wrap">
-    <div class="page-header">
-      <div class="page-title">Writing</div>
-    </div>
+  <div class="wrap">
+    <div class="page-hd"><h1>Writing</h1></div>
     <div class="writing-list">
-      <div class="writing-row">
+      <div class="writing-item">
         <div>
-          <div class="wr-title">What the bazaar taught me about negotiation</div>
-          <div class="wr-tag">Personal</div>
+          <div class="wi-title">What the bazaar taught me about negotiation</div>
+          <div class="wi-tag">Personal</div>
         </div>
-        <div class="wr-date">Mar 2025</div>
+        <div class="wi-date">Mar 2025</div>
       </div>
-      <div class="writing-row">
+      <div class="writing-item">
         <div>
-          <div class="wr-title">Why Central Asia is the next frontier for private capital</div>
-          <div class="wr-tag">Investments</div>
+          <div class="wi-title">Why Central Asia is the next frontier for private capital</div>
+          <div class="wi-tag">Investments</div>
         </div>
-        <div class="wr-date">Feb 2025</div>
+        <div class="wi-date">Feb 2025</div>
       </div>
-      <div class="writing-row">
+      <div class="writing-item">
         <div>
-          <div class="wr-title">On being an international student at an American college</div>
-          <div class="wr-tag">Personal</div>
+          <div class="wi-title">On being an international student at an American college</div>
+          <div class="wi-tag">Personal</div>
         </div>
-        <div class="wr-date">Jan 2025</div>
+        <div class="wi-date">Jan 2025</div>
       </div>
-      <div class="writing-row">
+      <div class="writing-item">
         <div>
-          <div class="wr-title">Political risk as an asset class</div>
-          <div class="wr-tag">Geopolitics</div>
+          <div class="wi-title">Political risk as an asset class</div>
+          <div class="wi-tag">Geopolitics</div>
         </div>
-        <div class="wr-date">Dec 2024</div>
+        <div class="wi-date">Dec 2024</div>
       </div>
-      <div class="writing-row">
+      <div class="writing-item">
         <div>
-          <div class="wr-title">The compound effect: one year of consistent work</div>
-          <div class="wr-tag">Personal</div>
+          <div class="wi-title">The compound effect: one year of consistent work</div>
+          <div class="wi-tag">Personal</div>
         </div>
-        <div class="wr-date">Nov 2024</div>
+        <div class="wi-date">Nov 2024</div>
       </div>
     </div>
   </div>
@@ -458,30 +375,28 @@
 
 <!-- SPEAKING -->
 <section id="speaking">
-  <div class="page-wrap">
-    <div class="page-header">
-      <div class="page-title">Speaking</div>
-    </div>
+  <div class="wrap">
+    <div class="page-hd"><h1>Speaking</h1></div>
     <div class="speaking-list">
-      <div class="speaking-row">
-        <div class="sp-year">Apr 2025</div>
+      <div class="speaking-item">
+        <div class="si-date">Apr 2025</div>
         <div>
-          <div class="sp-title">Global Culture Fair — Uzbekistan</div>
-          <div class="sp-desc">Represented Uzbekistan at Amherst's annual culture fair. Organized the booth, prizes, and wrote a promotional post for 1,500+ Telegram subscribers.</div>
+          <div class="si-title">Global Culture Fair — Uzbekistan</div>
+          <div class="si-desc">Represented Uzbekistan at Amherst's annual culture fair. Organized the booth, prizes, and wrote a promotional post for 1,500+ Telegram subscribers.</div>
         </div>
       </div>
-      <div class="speaking-row">
-        <div class="sp-year">Mar 2025</div>
+      <div class="speaking-item">
+        <div class="si-date">Mar 2025</div>
         <div>
-          <div class="sp-title">Political Studies Debate</div>
-          <div class="sp-desc">Argued the case for increased Western engagement in Central Asia. Judged by Amherst faculty.</div>
+          <div class="si-title">Political Studies Debate</div>
+          <div class="si-desc">Argued the case for increased Western engagement in Central Asia. Judged by Amherst faculty.</div>
         </div>
       </div>
-      <div class="speaking-row">
-        <div class="sp-year">Jan 2025</div>
+      <div class="speaking-item">
+        <div class="si-date">Jan 2025</div>
         <div>
-          <div class="sp-title">College Admissions Talk — Tashkent</div>
-          <div class="sp-desc">Spoke to high school students in Uzbekistan about navigating US admissions, financial aid, and life as an international student.</div>
+          <div class="si-title">College Admissions Talk — Tashkent</div>
+          <div class="si-desc">Spoke to high school students in Uzbekistan about navigating US admissions, financial aid, and life as an international student.</div>
         </div>
       </div>
     </div>
@@ -490,25 +405,23 @@
 
 <!-- GEOPOLITICS -->
 <section id="geo">
-  <div class="page-wrap">
-    <div class="page-header">
-      <div class="page-title">Geopolitics</div>
-    </div>
-    <div class="topic-grid">
-      <div class="topic-row">
-        <div class="tr-label">Focus Area</div>
-        <div class="tr-title">Central Asia &amp; the New Silk Road</div>
-        <div class="tr-body">The five Central Asian republics sit at the intersection of Russian, Chinese, and Western influence. I study how these competing pressures shape policy, trade routes, and investment climates across the region.</div>
+  <div class="wrap">
+    <div class="page-hd"><h1>Geopolitics</h1></div>
+    <div class="topic-list">
+      <div class="topic-item">
+        <div class="ti-label">Focus Area</div>
+        <div class="ti-title">Central Asia &amp; Competing Powers</div>
+        <div class="ti-body">The five Central Asian republics sit at the intersection of Russian, Chinese, and Western influence. I study how these competing pressures shape policy, trade routes, and investment climates across the region.</div>
       </div>
-      <div class="topic-row">
-        <div class="tr-label">Focus Area</div>
-        <div class="tr-title">Political Risk Analysis</div>
-        <div class="tr-body">How do investors price instability? I'm drawn to the tools — scenario analysis, regime mapping, sanctions tracking — that help capital allocators operate in frontier and emerging markets.</div>
+      <div class="topic-item">
+        <div class="ti-label">Focus Area</div>
+        <div class="ti-title">Political Risk Analysis</div>
+        <div class="ti-body">How do investors price instability? I am drawn to the tools like scenario analysis, regime mapping, and sanctions tracking that help capital allocators operate in frontier and emerging markets.</div>
       </div>
-      <div class="topic-row">
-        <div class="tr-label">Currently Reading</div>
-        <div class="tr-title">The Changing World Order — Ray Dalio</div>
-        <div class="tr-body">Dalio's framework for understanding how empires rise and fall through debt cycles and internal conflict. A useful lens for thinking about Uzbekistan's positioning in a multipolar world.</div>
+      <div class="topic-item">
+        <div class="ti-label">Currently Reading</div>
+        <div class="ti-title">The Changing World Order — Ray Dalio</div>
+        <div class="ti-body">Dalio's framework for understanding how empires rise and fall through debt cycles and internal conflict. A useful lens for thinking about Uzbekistan's positioning in a multipolar world.</div>
       </div>
     </div>
   </div>
@@ -516,36 +429,34 @@
 
 <!-- INVESTMENTS -->
 <section id="invest">
-  <div class="page-wrap">
-    <div class="page-header">
-      <div class="page-title">Investments</div>
-    </div>
-    <div class="topic-grid">
-      <div class="topic-row">
-        <div class="tr-label">Focus</div>
-        <div class="tr-title">Emerging Market Equities</div>
-        <div class="tr-body">I study businesses in markets where public information is thin and local knowledge matters. My interest is in companies with durable competitive advantages in fast-growing, under-researched regions.</div>
+  <div class="wrap">
+    <div class="page-hd"><h1>Investments</h1></div>
+    <div class="topic-list">
+      <div class="topic-item">
+        <div class="ti-label">Focus</div>
+        <div class="ti-title">Emerging Market Equities</div>
+        <div class="ti-body">I study businesses in markets where public information is thin and local knowledge matters. My interest is in companies with durable competitive advantages in fast-growing, under-researched regions.</div>
       </div>
-      <div class="topic-row">
-        <div class="tr-label">Framework</div>
-        <div class="tr-title">Value Investing with a Geopolitical Lens</div>
-        <div class="tr-body">Munger and Buffett's mental models applied to markets where political risk and currency volatility change the math. I'm learning to price what most analysts ignore.</div>
+      <div class="topic-item">
+        <div class="ti-label">Framework</div>
+        <div class="ti-title">Value Investing with a Geopolitical Lens</div>
+        <div class="ti-body">Munger and Buffett's mental models applied to markets where political risk and currency volatility change the math. I am learning to price what most analysts ignore.</div>
       </div>
-      <div class="topic-row">
-        <div class="tr-label">Currently Reading</div>
-        <div class="tr-title">One Up on Wall Street — Peter Lynch</div>
-        <div class="tr-body">Lynch's argument that individual investors spot consumer trends before professionals. I apply this to patterns I observe living between two very different economies.</div>
+      <div class="topic-item">
+        <div class="ti-label">Currently Reading</div>
+        <div class="ti-title">One Up on Wall Street — Peter Lynch</div>
+        <div class="ti-body">Lynch's argument that individual investors spot consumer trends before professionals. I apply this to patterns I observe living between two very different economies.</div>
       </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-name">Ozodbek Yusupov &copy; 2025</div>
+  <div class="footer-brand">Ozodiy<span>.</span></div>
   <div class="footer-links">
-    <a href="#">Telegram</a>
-    <a href="#">LinkedIn</a>
-    <a href="#">Twitter</a>
+    <a href="https://t.me/ozoodiy" target="_blank">Telegram</a>
+    <a href="https://linkedin.com/in/ozodbek-eshboboev" target="_blank">LinkedIn</a>
+    <a href="https://twitter.com/ozoodiy" target="_blank">Twitter</a>
   </div>
 </footer>
 
@@ -565,14 +476,26 @@
     { title: "The Lessons of History", cover: "https://m.media-amazon.com/images/I/61hTpG9gLFL._AC_UF1000,1000_QL80_DpWeblab_.jpg" },
   ];
 
+  function bookHTML(b) {
+    return `
+      <div class="book-scene">
+        <div class="book-3d">
+          <div class="book-face">
+            <img src="${b.cover}" alt="${b.title}" loading="lazy" />
+          </div>
+          <div class="book-spine"></div>
+          <div class="book-reflection">
+            <img src="${b.cover}" alt="" loading="lazy" />
+          </div>
+        </div>
+        <div class="book-title-sm">${b.title}</div>
+      </div>
+    `;
+  }
+
   function renderBooks(id, count) {
     const list = count ? books.slice(0, count) : books;
-    document.getElementById(id).innerHTML = list.map(b => `
-      <a class="book-card" href="#">
-        <img class="book-cover" src="${b.cover}" alt="${b.title}" loading="lazy" />
-        <div class="book-title-sm">${b.title}</div>
-      </a>
-    `).join('');
+    document.getElementById(id).innerHTML = list.map(bookHTML).join('');
   }
 
   renderBooks('home-books', 6);
