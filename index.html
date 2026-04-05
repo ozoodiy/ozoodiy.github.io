@@ -40,13 +40,7 @@
       z-index: 100;
     }
 
-    .logo {
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      color: var(--text);
-    }
-
+    .logo { font-size: 15px; font-weight: 700; cursor: pointer; color: var(--text); }
     .logo span { color: var(--orange); }
 
     nav { display: flex; align-items: center; gap: 4px; }
@@ -161,10 +155,8 @@
 
     .book-spine {
       position: absolute;
-      top: 0;
-      left: -10px;
-      width: 10px;
-      height: 100%;
+      top: 0; left: -10px;
+      width: 10px; height: 100%;
       background: linear-gradient(to right, #bbb, #ddd);
       transform: rotateY(-90deg);
       transform-origin: right center;
@@ -173,10 +165,8 @@
 
     .book-reflection {
       position: absolute;
-      bottom: -36%;
-      left: 0;
-      width: 100%;
-      height: 36%;
+      bottom: -36%; left: 0;
+      width: 100%; height: 36%;
       overflow: hidden;
       transform: scaleY(-1);
       opacity: 0.18;
@@ -212,42 +202,77 @@
 
     .page-hd .count { font-size: 12px; color: var(--muted); font-weight: 500; }
 
-    /* ── Reading shelf grid ── */
-    .shelf-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
-      gap: 28px 16px;
+    /* ── Horizontal bookshelf ── */
+    .bookshelf-outer {
+      position: relative;
     }
 
-    .shelf-item {
+    /* fade edges */
+    .bookshelf-outer::before,
+    .bookshelf-outer::after {
+      content: '';
+      position: absolute;
+      top: 0; bottom: 24px;
+      width: 48px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .bookshelf-outer::before { left: 0; background: linear-gradient(to right, var(--bg), transparent); }
+    .bookshelf-outer::after  { right: 0; background: linear-gradient(to left, var(--bg), transparent); }
+
+    .bookshelf-scroll {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 20px 48px 0;
+      margin: 0 -48px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      cursor: grab;
+    }
+
+    .bookshelf-scroll::-webkit-scrollbar { display: none; }
+    .bookshelf-scroll:active { cursor: grabbing; }
+
+    /* shelf line below books */
+    .bookshelf-rail {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      margin: 0 0 4px;
+    }
+
+    .shelf-book {
+      flex: 0 0 auto;
+      width: 90px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      align-items: center;
+      gap: 0;
+      transition: transform 0.2s ease;
+      user-select: none;
     }
 
-    .shelf-cover {
-      width: 100%;
-      aspect-ratio: 2/3;
-      border-radius: 3px 5px 5px 3px;
+    .shelf-book:hover { transform: translateY(-6px); }
+
+    .shelf-book-cover {
+      width: 90px;
+      height: 135px;
+      border-radius: 2px 4px 4px 2px;
       overflow: hidden;
-      border: 1px solid var(--border);
-      box-shadow: 3px 4px 14px rgba(0,0,0,0.13);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border-left: 3px solid rgba(0,0,0,0.12);
+      box-shadow: 3px 3px 10px rgba(0,0,0,0.18), 1px 1px 4px rgba(0,0,0,0.10);
     }
 
-    .shelf-item:hover .shelf-cover {
-      transform: translateY(-4px);
-      box-shadow: 5px 10px 22px rgba(0,0,0,0.2);
-    }
-
-    .shelf-cover img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .shelf-title {
-      font-size: 11px;
-      font-weight: 500;
-      color: var(--muted);
-      line-height: 1.3;
+    .shelf-book-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      pointer-events: none;
     }
 
     /* ── Reading detail view ── */
@@ -280,9 +305,9 @@
       flex: 0 0 160px;
       width: 160px;
       aspect-ratio: 2/3;
-      border-radius: 3px 6px 6px 3px;
+      border-radius: 2px 5px 5px 2px;
       overflow: hidden;
-      border: 1px solid var(--border);
+      border-left: 5px solid rgba(0,0,0,0.10);
       box-shadow: 6px 8px 28px rgba(0,0,0,0.18);
     }
 
@@ -308,7 +333,6 @@
     .detail-rating {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
       font-size: 13px;
       font-weight: 600;
       color: var(--orange);
@@ -353,19 +377,15 @@
 
     /* ── Speaking ── */
     .speaking-list { display: flex; flex-direction: column; gap: 40px; }
-
     .speaking-item { display: grid; grid-template-columns: 90px 1fr; gap: 24px; }
-
     .si-date { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; padding-top: 2px; }
     .si-title { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
     .si-desc { font-size: 15px; color: #666; line-height: 1.65; }
 
     /* ── Topics ── */
     .topic-list { display: flex; flex-direction: column; }
-
     .topic-item { padding: 32px 0; border-bottom: 1px solid var(--border); }
     .topic-item:first-child { border-top: 1px solid var(--border); }
-
     .ti-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
     .ti-title { font-family: 'Instrument Serif', serif; font-size: 24px; font-weight: 400; margin-bottom: 12px; letter-spacing: -0.01em; }
     .ti-body { font-size: 15px; color: #555; max-width: 560px; line-height: 1.75; }
@@ -403,6 +423,7 @@
       footer { padding: 20px; flex-direction: column; gap: 12px; }
       .detail-layout { flex-direction: column; gap: 24px; }
       .detail-cover { flex: 0 0 130px; width: 130px; }
+      .bookshelf-scroll { padding: 20px 20px 0; margin: 0 -20px; }
     }
   </style>
 </head>
@@ -456,7 +477,10 @@
         <h1>Reading</h1>
         <span class="count" id="book-count"></span>
       </div>
-      <div class="shelf-grid" id="shelf-grid"></div>
+      <div class="bookshelf-outer">
+        <div class="bookshelf-scroll" id="bookshelf-scroll"></div>
+      </div>
+      <div class="bookshelf-rail"></div>
     </div>
 
     <!-- Detail view -->
@@ -737,19 +761,31 @@
   renderBooks('home-books', 6);
   document.getElementById('book-count').textContent = books.length + ' books';
 
-  /* ── Reading shelf grid ── */
+  /* ── Horizontal bookshelf ── */
   function renderShelf() {
-    document.getElementById('shelf-grid').innerHTML = books.map((b, i) => `
-      <div class="shelf-item" onclick="openDetail(${i})">
-        <div class="shelf-cover">
-          <img src="${b.cover}" alt="${b.title}" loading="lazy" />
+    document.getElementById('bookshelf-scroll').innerHTML = books.map((b, i) => `
+      <div class="shelf-book" onclick="openDetail(${i})">
+        <div class="shelf-book-cover">
+          <img src="${b.cover}" alt="${b.title}" loading="lazy" draggable="false" />
         </div>
-        <div class="shelf-title">${b.title}</div>
       </div>
     `).join('');
   }
 
   renderShelf();
+
+  /* drag-to-scroll */
+  const scroll = document.getElementById('bookshelf-scroll');
+  let isDown = false, startX, scrollLeft;
+  scroll.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - scroll.offsetLeft; scrollLeft = scroll.scrollLeft; });
+  scroll.addEventListener('mouseleave', () => isDown = false);
+  scroll.addEventListener('mouseup', () => isDown = false);
+  scroll.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - scroll.offsetLeft;
+    scroll.scrollLeft = scrollLeft - (x - startX) * 1.5;
+  });
 
   /* ── Detail view ── */
   function openDetail(idx) {
@@ -780,706 +816,6 @@
     const nav = document.getElementById('nav-' + id);
     if (nav) nav.classList.add('active');
     closeDetail();
-    window.scrollTo(0, 0);
-  }
-</script>
-
-</body>
-</html>      position: sticky;
-      top: 0;
-      background: var(--bg);
-      z-index: 100;
-    }
-
-    .logo {
-      font-size: 15px;
-      font-weight: 700;
-      cursor: pointer;
-      color: var(--text);
-    }
-
-    .logo span { color: var(--orange); }
-
-    nav { display: flex; align-items: center; gap: 4px; }
-
-    nav a {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      padding: 6px 12px;
-      border-radius: 6px;
-      transition: color 0.15s, background 0.15s;
-      cursor: pointer;
-    }
-
-    nav a:hover { color: var(--text); background: #f0ede8; }
-    nav a.active { color: var(--orange); }
-
-    section { display: none; }
-    section.active { display: block; }
-
-    .wrap {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 64px 48px 96px;
-    }
-
-    .home-hero { padding-top: 16px; margin-bottom: 64px; }
-
-    .home-name {
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 20px;
-    }
-
-    .home-h1 {
-      font-family: 'Instrument Serif', serif;
-      font-size: 56px;
-      font-weight: 400;
-      line-height: 1.08;
-      letter-spacing: -0.02em;
-      margin-bottom: 28px;
-    }
-
-    .home-h1 .orange { font-style: italic; color: var(--orange); }
-
-    .home-bio {
-      font-size: 17px;
-      color: #555;
-      max-width: 500px;
-      line-height: 1.75;
-      margin-bottom: 36px;
-    }
-
-    .home-nav-pills { display: flex; flex-wrap: wrap; gap: 8px; }
-
-    .pill {
-      font-size: 13px;
-      font-weight: 600;
-      padding: 8px 18px;
-      border-radius: 100px;
-      border: 1.5px solid var(--border);
-      color: var(--text);
-      cursor: pointer;
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .pill:hover { border-color: var(--orange); color: var(--orange); }
-
-    .section-label {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 24px;
-    }
-
-    /* ── Home book grid (unchanged) ── */
-    .book-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      gap: 28px 20px;
-    }
-
-    .book-scene { perspective: 600px; }
-
-    .book-3d {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 2/3;
-      transform-style: preserve-3d;
-      transform: rotateY(-18deg);
-      transition: transform 0.35s ease;
-      cursor: pointer;
-    }
-
-    .book-scene:hover .book-3d { transform: rotateY(-4deg) translateY(-4px); }
-
-    .book-face {
-      position: absolute;
-      inset: 0;
-      border-radius: 2px 4px 4px 2px;
-      overflow: hidden;
-      box-shadow: 6px 6px 20px rgba(0,0,0,0.18), 2px 2px 6px rgba(0,0,0,0.10);
-    }
-
-    .book-face img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .book-spine {
-      position: absolute;
-      top: 0;
-      left: -10px;
-      width: 10px;
-      height: 100%;
-      background: linear-gradient(to right, #bbb, #ddd);
-      transform: rotateY(-90deg);
-      transform-origin: right center;
-      border-radius: 2px 0 0 2px;
-    }
-
-    .book-reflection {
-      position: absolute;
-      bottom: -36%;
-      left: 0;
-      width: 100%;
-      height: 36%;
-      overflow: hidden;
-      transform: scaleY(-1);
-      opacity: 0.18;
-      pointer-events: none;
-    }
-
-    .book-reflection img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-    .book-title-sm {
-      font-size: 11px;
-      font-weight: 500;
-      margin-top: 44px;
-      line-height: 1.3;
-      color: var(--muted);
-    }
-
-    /* ── Reading carousel ── */
-    .carousel-wrap {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      padding: 40px 0 20px;
-    }
-
-    .carousel-track {
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      gap: 0;
-      transition: none;
-      min-height: 300px;
-    }
-
-    .carousel-book {
-      flex: 0 0 auto;
-      cursor: pointer;
-      transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      position: relative;
-    }
-
-    /* Spine view (non-active) */
-    .carousel-book .spine-view {
-      width: 44px;
-      height: 220px;
-      border-radius: 3px 0 0 3px;
-      overflow: hidden;
-      position: relative;
-      box-shadow: 2px 4px 12px rgba(0,0,0,0.22);
-      transition: all 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    .carousel-book .spine-view img {
-      width: 220px;
-      height: 220px;
-      object-fit: cover;
-      object-position: left center;
-      transform: rotate(90deg) translateY(-100%);
-      transform-origin: top left;
-      display: block;
-    }
-
-    .spine-label {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 4px;
-      background: rgba(0,0,0,0.45);
-    }
-
-    .spine-label span {
-      font-size: 10px;
-      font-weight: 600;
-      color: #fff;
-      writing-mode: vertical-rl;
-      text-orientation: mixed;
-      transform: rotate(180deg);
-      letter-spacing: 0.05em;
-      line-height: 1.2;
-      text-align: center;
-      overflow: hidden;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-
-    /* Cover view (active) */
-    .carousel-book.active .spine-view {
-      width: 160px;
-      height: 240px;
-      border-radius: 2px 5px 5px 2px;
-      box-shadow: 12px 12px 40px rgba(0,0,0,0.28), 4px 4px 12px rgba(0,0,0,0.14);
-    }
-
-    .carousel-book.active .spine-view img {
-      width: 160px;
-      height: 240px;
-      object-fit: cover;
-      object-position: center;
-      transform: none;
-    }
-
-    .carousel-book.active .spine-label { display: none; }
-
-    /* Active spine decoration */
-    .carousel-book.active::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 8px;
-      height: 240px;
-      background: linear-gradient(to right, #999, #ccc);
-      border-radius: 2px 0 0 2px;
-      z-index: 1;
-    }
-
-    .book-info {
-      display: none;
-      margin-top: 28px;
-      text-align: center;
-      animation: fadeUp 0.3s ease;
-    }
-
-    .carousel-book.active .book-info { display: block; }
-
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(8px); }
-      to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .book-info-title {
-      font-family: 'Instrument Serif', serif;
-      font-size: 18px;
-      font-weight: 400;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
-    .book-info-author {
-      font-size: 12px;
-      color: var(--muted);
-      font-weight: 500;
-    }
-
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1.5px solid var(--border);
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      font-size: 16px;
-      color: var(--text);
-      transition: border-color 0.15s, color 0.15s;
-      z-index: 10;
-      user-select: none;
-    }
-
-    .carousel-arrow:hover { border-color: var(--orange); color: var(--orange); }
-    .carousel-arrow.left  { left: 0; }
-    .carousel-arrow.right { right: 0; }
-
-    /* Page heading */
-    .page-hd {
-      margin-bottom: 32px;
-      padding-bottom: 20px;
-      border-bottom: 1px solid var(--border);
-      display: flex;
-      align-items: baseline;
-      gap: 16px;
-    }
-
-    .page-hd h1 {
-      font-family: 'Instrument Serif', serif;
-      font-size: 40px;
-      font-weight: 400;
-      letter-spacing: -0.02em;
-    }
-
-    .page-hd .count { font-size: 12px; color: var(--muted); font-weight: 500; }
-
-    /* Writing */
-    .writing-list { display: flex; flex-direction: column; }
-
-    .writing-item {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      align-items: center;
-      gap: 16px;
-      padding: 20px 0;
-      border-bottom: 1px solid var(--border);
-      cursor: pointer;
-    }
-
-    .writing-item:first-child { border-top: 1px solid var(--border); }
-    .writing-item:hover .wi-title { color: var(--orange); }
-
-    .wi-title { font-size: 17px; font-weight: 500; line-height: 1.35; transition: color 0.15s; }
-    .wi-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
-    .wi-date { font-size: 12px; color: var(--muted); font-weight: 500; white-space: nowrap; }
-
-    /* Speaking */
-    .speaking-list { display: flex; flex-direction: column; gap: 40px; }
-
-    .speaking-item { display: grid; grid-template-columns: 90px 1fr; gap: 24px; }
-
-    .si-date { font-size: 12px; font-weight: 600; color: var(--muted); letter-spacing: 0.04em; padding-top: 2px; }
-    .si-title { font-size: 18px; font-weight: 600; margin-bottom: 6px; }
-    .si-desc { font-size: 15px; color: #666; line-height: 1.65; }
-
-    /* Topics */
-    .topic-list { display: flex; flex-direction: column; }
-
-    .topic-item { padding: 32px 0; border-bottom: 1px solid var(--border); }
-    .topic-item:first-child { border-top: 1px solid var(--border); }
-
-    .ti-label { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 8px; }
-    .ti-title { font-family: 'Instrument Serif', serif; font-size: 24px; font-weight: 400; margin-bottom: 12px; letter-spacing: -0.01em; }
-    .ti-body { font-size: 15px; color: #555; max-width: 560px; line-height: 1.75; }
-
-    footer {
-      border-top: 1px solid var(--border);
-      padding: 24px 48px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .footer-brand { font-size: 13px; font-weight: 700; color: var(--text); }
-    .footer-brand span { color: var(--orange); }
-
-    .footer-links { display: flex; gap: 6px; }
-
-    .footer-links a {
-      font-size: 13px;
-      font-weight: 500;
-      color: var(--muted);
-      padding: 6px 12px;
-      border-radius: 6px;
-      transition: color 0.15s, background 0.15s;
-    }
-
-    .footer-links a:hover { color: var(--text); background: #f0ede8; }
-
-    @media (max-width: 640px) {
-      header { padding: 0 20px; }
-      .wrap { padding: 40px 20px 64px; }
-      .home-h1 { font-size: 38px; }
-      .speaking-item { grid-template-columns: 1fr; gap: 4px; }
-      footer { padding: 20px; flex-direction: column; gap: 12px; }
-      .carousel-book .spine-view { width: 36px; height: 180px; }
-      .carousel-book.active .spine-view { width: 130px; height: 200px; }
-    }
-  </style>
-</head>
-<body>
-
-<header>
-  <div class="logo" onclick="showSection('home')">Ozodiy<span>.</span></div>
-  <nav>
-    <a onclick="showSection('reading')"  id="nav-reading">Reading</a>
-    <a onclick="showSection('writing')"  id="nav-writing">Writing</a>
-    <a onclick="showSection('speaking')" id="nav-speaking">Speaking</a>
-    <a onclick="showSection('geo')"      id="nav-geo">Geopolitics</a>
-    <a onclick="showSection('invest')"   id="nav-invest">Investments</a>
-  </nav>
-</header>
-
-<!-- HOME -->
-<section id="home" class="active">
-  <div class="wrap">
-    <div class="home-hero">
-      <div class="home-name">Ozodbek Eshboboev</div>
-      <h1 class="home-h1">
-        Studying the logic<br>
-        of <span class="orange">geopolitics<br>
-        &amp; markets.</span>
-      </h1>
-      <p class="home-bio">
-        I study Political Science and Economics at Amherst. I am from Uzbekistan. I am trying to understand how wars and power shifts reshape Central Asian economies and security.
-      </p>
-      <div class="home-nav-pills">
-        <div class="pill" onclick="showSection('reading')">Reading</div>
-        <div class="pill" onclick="showSection('writing')">Writing</div>
-        <div class="pill" onclick="showSection('invest')">Investments</div>
-        <div class="pill" onclick="showSection('geo')">Geopolitics</div>
-        <div class="pill" onclick="showSection('speaking')">Speaking</div>
-      </div>
-    </div>
-
-    <div class="section-label">Recently read</div>
-    <div class="book-grid" id="home-books"></div>
-  </div>
-</section>
-
-<!-- READING -->
-<section id="reading">
-  <div class="wrap">
-    <div class="page-hd">
-      <h1>Reading</h1>
-      <span class="count" id="book-count"></span>
-    </div>
-    <div class="carousel-wrap">
-      <div class="carousel-arrow left" id="carr-left">&#8249;</div>
-      <div class="carousel-track" id="carousel-track"></div>
-      <div class="carousel-arrow right" id="carr-right">&#8250;</div>
-    </div>
-  </div>
-</section>
-
-<!-- WRITING -->
-<section id="writing">
-  <div class="wrap">
-    <div class="page-hd"><h1>Writing</h1></div>
-    <div class="writing-list">
-      <div class="writing-item">
-        <div>
-          <div class="wi-title">What the bazaar taught me about negotiation</div>
-          <div class="wi-tag">Personal</div>
-        </div>
-        <div class="wi-date">Mar 2025</div>
-      </div>
-      <div class="writing-item">
-        <div>
-          <div class="wi-title">Why Central Asia is the next frontier for private capital</div>
-          <div class="wi-tag">Investments</div>
-        </div>
-        <div class="wi-date">Feb 2025</div>
-      </div>
-      <div class="writing-item">
-        <div>
-          <div class="wi-title">On being an international student at an American college</div>
-          <div class="wi-tag">Personal</div>
-        </div>
-        <div class="wi-date">Jan 2025</div>
-      </div>
-      <div class="writing-item">
-        <div>
-          <div class="wi-title">Political risk as an asset class</div>
-          <div class="wi-tag">Geopolitics</div>
-        </div>
-        <div class="wi-date">Dec 2024</div>
-      </div>
-      <div class="writing-item">
-        <div>
-          <div class="wi-title">The compound effect: one year of consistent work</div>
-          <div class="wi-tag">Personal</div>
-        </div>
-        <div class="wi-date">Nov 2024</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SPEAKING -->
-<section id="speaking">
-  <div class="wrap">
-    <div class="page-hd"><h1>Speaking</h1></div>
-    <div class="speaking-list">
-      <div class="speaking-item">
-        <div class="si-date">Apr 2025</div>
-        <div>
-          <div class="si-title">Global Culture Fair — Uzbekistan</div>
-          <div class="si-desc">Represented Uzbekistan at Amherst's annual culture fair. Organized the booth, prizes, and wrote a promotional post for 1,500+ Telegram subscribers.</div>
-        </div>
-      </div>
-      <div class="speaking-item">
-        <div class="si-date">Mar 2025</div>
-        <div>
-          <div class="si-title">Political Studies Debate</div>
-          <div class="si-desc">Argued the case for increased Western engagement in Central Asia. Judged by Amherst faculty.</div>
-        </div>
-      </div>
-      <div class="speaking-item">
-        <div class="si-date">Jan 2025</div>
-        <div>
-          <div class="si-title">College Admissions Talk — Tashkent</div>
-          <div class="si-desc">Spoke to high school students in Uzbekistan about navigating US admissions, financial aid, and life as an international student.</div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- GEOPOLITICS -->
-<section id="geo">
-  <div class="wrap">
-    <div class="page-hd"><h1>Geopolitics</h1></div>
-    <div class="topic-list">
-      <div class="topic-item">
-        <div class="ti-label">Focus Area</div>
-        <div class="ti-title">Central Asia &amp; Competing Powers</div>
-        <div class="ti-body">The five Central Asian republics sit at the intersection of Russian, Chinese, and Western influence. I study how these competing pressures shape policy, trade routes, and investment climates across the region.</div>
-      </div>
-      <div class="topic-item">
-        <div class="ti-label">Focus Area</div>
-        <div class="ti-title">Political Risk Analysis</div>
-        <div class="ti-body">How do investors price instability? I am drawn to the tools like scenario analysis, regime mapping, and sanctions tracking that help capital allocators operate in frontier and emerging markets.</div>
-      </div>
-      <div class="topic-item">
-        <div class="ti-label">Currently Reading</div>
-        <div class="ti-title">The Changing World Order — Ray Dalio</div>
-        <div class="ti-body">Dalio's framework for understanding how empires rise and fall through debt cycles and internal conflict. A useful lens for thinking about Uzbekistan's positioning in a multipolar world.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- INVESTMENTS -->
-<section id="invest">
-  <div class="wrap">
-    <div class="page-hd"><h1>Investments</h1></div>
-    <div class="topic-list">
-      <div class="topic-item">
-        <div class="ti-label">Focus</div>
-        <div class="ti-title">Emerging Market Equities</div>
-        <div class="ti-body">I study businesses in markets where public information is thin and local knowledge matters. My interest is in companies with durable competitive advantages in fast-growing, under-researched regions.</div>
-      </div>
-      <div class="topic-item">
-        <div class="ti-label">Framework</div>
-        <div class="ti-title">Value Investing with a Geopolitical Lens</div>
-        <div class="ti-body">Munger and Buffett's mental models applied to markets where political risk and currency volatility change the math. I am learning to price what most analysts ignore.</div>
-      </div>
-      <div class="topic-item">
-        <div class="ti-label">Currently Reading</div>
-        <div class="ti-title">One Up on Wall Street — Peter Lynch</div>
-        <div class="ti-body">Lynch's argument that individual investors spot consumer trends before professionals. I apply this to patterns I observe living between two very different economies.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-brand">Ozodiy<span>.</span></div>
-  <div class="footer-links">
-    <a href="https://t.me/ozoodiy" target="_blank">Telegram</a>
-    <a href="https://linkedin.com/in/oeshboboev" target="_blank">LinkedIn</a>
-    <a href="https://twitter.com/ozoodiy" target="_blank">Twitter</a>
-  </div>
-</footer>
-
-<script>
-  const books = [
-    { title: "Zero to One", author: "Peter Thiel", cover: "https://m.media-amazon.com/images/I/51zGCdRQXOL._AC_UF894,1000_QL80_.jpg" },
-    { title: "Poor Charlie's Almanack", author: "Charlie Munger", cover: "https://m.media-amazon.com/images/I/81vgkcr86iL._AC_UF1000,1000_QL80_.jpg" },
-    { title: "The Outsiders", author: "William Thorndike", cover: "https://m.media-amazon.com/images/I/61Cth988JcL._AC_UF1000,1000_QL80_.jpg" },
-    { title: "7 Powers", author: "Hamilton Helmer", cover: "https://m.media-amazon.com/images/I/61ZScoZzPLL._AC_UF1000,1000_QL80_.jpg" },
-    { title: "The Changing World Order", author: "Ray Dalio", cover: "https://m.media-amazon.com/images/I/41c7pa262UL._SX327_BO1,204,203,200_.jpg" },
-    { title: "Antifragile", author: "Nassim Taleb", cover: "https://m.media-amazon.com/images/I/61cmwTmON3L._AC_UF1000,1000_QL80_.jpg" },
-    { title: "One Up on Wall Street", author: "Peter Lynch", cover: "https://m.media-amazon.com/images/I/71Ku4UmSM3L._AC_UF1000,1000_QL80_.jpg" },
-    { title: "Ego is the Enemy", author: "Ryan Holiday", cover: "https://m.media-amazon.com/images/I/41ET8OFVFCL.jpg" },
-    { title: "Almanack of Naval Ravikant", author: "Eric Jorgenson", cover: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1598011736i/54898389.jpg" },
-    { title: "Common Stocks & Uncommon Profits", author: "Philip Fisher", cover: "https://m.media-amazon.com/images/I/61tzuAYGKqL._AC_UF1000,1000_QL80_.jpg" },
-    { title: "Chip War", author: "Chris Miller", cover: "https://m.media-amazon.com/images/I/71hMs9v7P6L._AC_UF1000,1000_QL80_.jpg" },
-    { title: "The Lessons of History", author: "Will & Ariel Durant", cover: "https://m.media-amazon.com/images/I/61hTpG9gLFL._AC_UF1000,1000_QL80_DpWeblab_.jpg" },
-  ];
-
-  /* ── Home grid (unchanged) ── */
-  function bookHTML(b) {
-    return `
-      <div class="book-scene">
-        <div class="book-3d">
-          <div class="book-face">
-            <img src="${b.cover}" alt="${b.title}" loading="lazy" />
-          </div>
-          <div class="book-spine"></div>
-          <div class="book-reflection">
-            <img src="${b.cover}" alt="" loading="lazy" />
-          </div>
-        </div>
-        <div class="book-title-sm">${b.title}</div>
-      </div>
-    `;
-  }
-
-  function renderBooks(id, count) {
-    const list = count ? books.slice(0, count) : books;
-    document.getElementById(id).innerHTML = list.map(bookHTML).join('');
-  }
-
-  renderBooks('home-books', 6);
-  document.getElementById('book-count').textContent = books.length + ' books';
-
-  /* ── Reading carousel ── */
-  let activeIdx = 0;
-  const VISIBLE = 5; // books visible either side of active
-
-  function buildCarousel() {
-    const track = document.getElementById('carousel-track');
-    track.innerHTML = books.map((b, i) => `
-      <div class="carousel-book${i === activeIdx ? ' active' : ''}" data-idx="${i}" onclick="selectBook(${i})">
-        <div class="spine-view">
-          <img src="${b.cover}" alt="${b.title}" loading="lazy" />
-          <div class="spine-label"><span>${b.title}</span></div>
-        </div>
-        <div class="book-info">
-          <div class="book-info-title">${b.title}</div>
-          <div class="book-info-author">${b.author}</div>
-        </div>
-      </div>
-    `).join('');
-    updateVisible();
-  }
-
-  function updateVisible() {
-    const bookEls = document.querySelectorAll('.carousel-book');
-    bookEls.forEach((el, i) => {
-      const dist = Math.abs(i - activeIdx);
-      if (dist > VISIBLE) {
-        el.style.display = 'none';
-      } else {
-        el.style.display = '';
-        el.style.opacity = dist === 0 ? '1' : Math.max(0.3, 1 - dist * 0.15).toString();
-      }
-    });
-  }
-
-  function selectBook(idx) {
-    document.querySelectorAll('.carousel-book').forEach(el => el.classList.remove('active'));
-    activeIdx = idx;
-    const el = document.querySelector(`.carousel-book[data-idx="${idx}"]`);
-    if (el) {
-      el.classList.add('active');
-      el.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }
-    updateVisible();
-  }
-
-  document.getElementById('carr-left').addEventListener('click', () => {
-    if (activeIdx > 0) selectBook(activeIdx - 1);
-  });
-
-  document.getElementById('carr-right').addEventListener('click', () => {
-    if (activeIdx < books.length - 1) selectBook(activeIdx + 1);
-  });
-
-  buildCarousel();
-
-  /* ── Navigation ── */
-  function showSection(id) {
-    document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    const nav = document.getElementById('nav-' + id);
-    if (nav) nav.classList.add('active');
     window.scrollTo(0, 0);
   }
 </script>
