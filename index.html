@@ -8,6 +8,8 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { scroll-behavior: smooth; }
+
     :root {
       --bg: #fafaf8;
       --text: #0f0f0f;
@@ -27,6 +29,7 @@
 
     a { text-decoration: none; color: inherit; }
 
+    /* ── Header ── */
     header {
       display: flex;
       align-items: center;
@@ -40,7 +43,13 @@
       z-index: 100;
     }
 
-    .logo { font-size: 15px; font-weight: 700; cursor: pointer; color: var(--text); }
+    .logo {
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--text);
+      flex-shrink: 0;
+    }
     .logo span { color: var(--orange); }
 
     nav { display: flex; align-items: center; gap: 4px; }
@@ -53,11 +62,63 @@
       border-radius: 6px;
       transition: color 0.15s, background 0.15s;
       cursor: pointer;
+      white-space: nowrap;
     }
 
     nav a:hover { color: var(--text); background: #f0ede8; }
     nav a.active { color: var(--orange); }
 
+    /* hamburger — hidden on desktop */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .hamburger:hover { background: #f0ede8; }
+    .hamburger span {
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--text);
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* mobile nav drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed;
+      top: 56px;
+      left: 0;
+      right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 99;
+      flex-direction: column;
+      padding: 8px 16px 16px;
+      gap: 2px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted);
+      padding: 10px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+    }
+    .mobile-nav a:hover { color: var(--text); background: #f0ede8; }
+    .mobile-nav a.active { color: var(--orange); }
+
+    /* ── Sections ── */
     section { display: none; }
     section.active { display: block; }
 
@@ -122,14 +183,17 @@
       margin-bottom: 24px;
     }
 
-    /* ── Home book grid (3D, unchanged) ── */
+    /* ── Home book grid (3D) ── */
     .book-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
       gap: 28px 20px;
     }
 
-    .book-scene { perspective: 600px; }
+    .book-scene {
+      perspective: 600px;
+      cursor: pointer;
+    }
 
     .book-3d {
       position: relative;
@@ -138,7 +202,6 @@
       transform-style: preserve-3d;
       transform: rotateY(-18deg);
       transition: transform 0.35s ease;
-      cursor: pointer;
     }
 
     .book-scene:hover .book-3d { transform: rotateY(-4deg) translateY(-4px); }
@@ -205,14 +268,15 @@
     /* ── Horizontal bookshelf ── */
     .bookshelf-outer {
       position: relative;
+      margin-bottom: 0;
     }
 
-    /* fade edges */
     .bookshelf-outer::before,
     .bookshelf-outer::after {
       content: '';
       position: absolute;
-      top: 0; bottom: 24px;
+      top: 0;
+      bottom: 0;
       width: 48px;
       z-index: 2;
       pointer-events: none;
@@ -226,7 +290,7 @@
       align-items: flex-end;
       gap: 10px;
       overflow-x: auto;
-      padding: 20px 48px 0;
+      padding: 20px 48px 12px;
       margin: 0 -48px;
       scrollbar-width: none;
       -ms-overflow-style: none;
@@ -236,12 +300,12 @@
     .bookshelf-scroll::-webkit-scrollbar { display: none; }
     .bookshelf-scroll:active { cursor: grabbing; }
 
-    /* shelf line below books */
+    /* shelf rail sits inside .bookshelf-outer, below scroll */
     .bookshelf-rail {
       height: 6px;
       background: var(--border);
       border-radius: 3px;
-      margin: 0 0 4px;
+      margin: 0 0 32px;
     }
 
     .shelf-book {
@@ -333,6 +397,7 @@
     .detail-rating {
       display: inline-flex;
       align-items: center;
+      gap: 6px;
       font-size: 13px;
       font-weight: 600;
       color: var(--orange);
@@ -365,13 +430,11 @@
       gap: 16px;
       padding: 20px 0;
       border-bottom: 1px solid var(--border);
-      cursor: pointer;
     }
 
     .writing-item:first-child { border-top: 1px solid var(--border); }
-    .writing-item:hover .wi-title { color: var(--orange); }
 
-    .wi-title { font-size: 17px; font-weight: 500; line-height: 1.35; transition: color 0.15s; }
+    .wi-title { font-size: 17px; font-weight: 500; line-height: 1.35; }
     .wi-tag { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
     .wi-date { font-size: 12px; color: var(--muted); font-weight: 500; white-space: nowrap; }
 
@@ -415,15 +478,21 @@
 
     .footer-links a:hover { color: var(--text); background: #f0ede8; }
 
+    /* ── Responsive ── */
     @media (max-width: 640px) {
       header { padding: 0 20px; }
+      nav { display: none; }
+      .hamburger { display: flex; }
+
       .wrap { padding: 40px 20px 64px; }
       .home-h1 { font-size: 38px; }
       .speaking-item { grid-template-columns: 1fr; gap: 4px; }
       footer { padding: 20px; flex-direction: column; gap: 12px; }
       .detail-layout { flex-direction: column; gap: 24px; }
       .detail-cover { flex: 0 0 130px; width: 130px; }
-      .bookshelf-scroll { padding: 20px 20px 0; margin: 0 -20px; }
+      .bookshelf-scroll { padding: 20px 20px 12px; margin: 0 -20px; }
+      .bookshelf-outer::before { background: linear-gradient(to right, var(--bg), transparent); }
+      .bookshelf-outer::after { background: linear-gradient(to left, var(--bg), transparent); }
     }
   </style>
 </head>
@@ -438,7 +507,18 @@
     <a onclick="showSection('geo')" id="nav-geo">Geopolitics</a>
     <a onclick="showSection('invest')" id="nav-invest">Investments</a>
   </nav>
+  <div class="hamburger" id="hamburger" onclick="toggleMobileNav()">
+    <span></span><span></span><span></span>
+  </div>
 </header>
+
+<div class="mobile-nav" id="mobile-nav">
+  <a onclick="showSection('reading'); closeMobileNav()" id="mnav-reading">Reading</a>
+  <a onclick="showSection('writing'); closeMobileNav()" id="mnav-writing">Writing</a>
+  <a onclick="showSection('speaking'); closeMobileNav()" id="mnav-speaking">Speaking</a>
+  <a onclick="showSection('geo'); closeMobileNav()" id="mnav-geo">Geopolitics</a>
+  <a onclick="showSection('invest'); closeMobileNav()" id="mnav-invest">Investments</a>
+</div>
 
 <!-- HOME -->
 <section id="home" class="active">
@@ -471,7 +551,6 @@
 <section id="reading">
   <div class="wrap">
 
-    <!-- Shelf list view -->
     <div id="reading-list">
       <div class="page-hd">
         <h1>Reading</h1>
@@ -479,11 +558,10 @@
       </div>
       <div class="bookshelf-outer">
         <div class="bookshelf-scroll" id="bookshelf-scroll"></div>
+        <div class="bookshelf-rail"></div>
       </div>
-      <div class="bookshelf-rail"></div>
     </div>
 
-    <!-- Detail view -->
     <div id="reading-detail">
       <div class="back-btn" onclick="closeDetail()">&#8592; All books</div>
       <div class="detail-layout">
@@ -690,7 +768,7 @@
       author: "Peter Lynch",
       date: "September 2024",
       rating: 7,
-      cover: "https://m.media-amazon.com/images/I/71Ku4UmSM3L._AC_UF1000,1000_QL80_.jpg",
+      cover: "https://m.media-amazon.com/images/I/71x+UJNz2rL._AC_UF1000,1000_QL80_.jpg",
       review: "Lynch argues individual investors have an edge over professionals because they observe consumer trends firsthand. Living between Uzbekistan and the US, I notice things that no analyst sitting in New York would catch. This book gave me confidence that local knowledge is a real edge, not just an anecdote."
     },
     {
@@ -735,10 +813,10 @@
     },
   ];
 
-  /* ── Home grid (3D, unchanged) ── */
-  function bookHTML(b) {
+  /* ── Home grid ── */
+  function bookHTML(b, idx) {
     return `
-      <div class="book-scene">
+      <div class="book-scene" onclick="showSection('reading'); setTimeout(function(){ openDetail(${idx}); }, 50);">
         <div class="book-3d">
           <div class="book-face">
             <img src="${b.cover}" alt="${b.title}" loading="lazy" />
@@ -753,12 +831,12 @@
     `;
   }
 
-  function renderBooks(id, count) {
-    const list = count ? books.slice(0, count) : books;
-    document.getElementById(id).innerHTML = list.map(bookHTML).join('');
+  function renderHomeBooks() {
+    document.getElementById('home-books').innerHTML =
+      books.slice(0, 6).map((b, i) => bookHTML(b, i)).join('');
   }
 
-  renderBooks('home-books', 6);
+  renderHomeBooks();
   document.getElementById('book-count').textContent = books.length + ' books';
 
   /* ── Horizontal bookshelf ── */
@@ -776,16 +854,29 @@
 
   /* drag-to-scroll */
   const scroll = document.getElementById('bookshelf-scroll');
-  let isDown = false, startX, scrollLeft;
-  scroll.addEventListener('mousedown', e => { isDown = true; startX = e.pageX - scroll.offsetLeft; scrollLeft = scroll.scrollLeft; });
+  let isDown = false, startX, scrollLeft, didDrag = false;
+
+  scroll.addEventListener('mousedown', e => {
+    isDown = true;
+    didDrag = false;
+    startX = e.pageX - scroll.offsetLeft;
+    scrollLeft = scroll.scrollLeft;
+  });
   scroll.addEventListener('mouseleave', () => isDown = false);
   scroll.addEventListener('mouseup', () => isDown = false);
   scroll.addEventListener('mousemove', e => {
     if (!isDown) return;
     e.preventDefault();
     const x = e.pageX - scroll.offsetLeft;
-    scroll.scrollLeft = scrollLeft - (x - startX) * 1.5;
+    const delta = x - startX;
+    if (Math.abs(delta) > 4) didDrag = true;
+    scroll.scrollLeft = scrollLeft - delta * 1.2;
   });
+
+  /* prevent click firing after drag */
+  scroll.addEventListener('click', e => {
+    if (didDrag) { e.stopPropagation(); didDrag = false; }
+  }, true);
 
   /* ── Detail view ── */
   function openDetail(idx) {
@@ -795,7 +886,7 @@
     document.getElementById('detail-title').textContent = b.title;
     document.getElementById('detail-author').textContent = 'By ' + b.author;
     document.getElementById('detail-date').textContent = 'Read: ' + b.date;
-    document.getElementById('detail-rating').textContent = b.rating + ' / 10';
+    document.getElementById('detail-rating').innerHTML = '&#9733; ' + b.rating + ' / 10';
     document.getElementById('detail-review').textContent = b.review;
 
     document.getElementById('reading-list').classList.add('hidden');
@@ -811,12 +902,29 @@
   /* ── Navigation ── */
   function showSection(id) {
     document.querySelectorAll('section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.querySelectorAll('nav a, .mobile-nav a').forEach(a => a.classList.remove('active'));
     document.getElementById(id).classList.add('active');
+
     const nav = document.getElementById('nav-' + id);
     if (nav) nav.classList.add('active');
+    const mnav = document.getElementById('mnav-' + id);
+    if (mnav) mnav.classList.add('active');
+
     closeDetail();
     window.scrollTo(0, 0);
+  }
+
+  /* ── Mobile nav ── */
+  function toggleMobileNav() {
+    const nav = document.getElementById('mobile-nav');
+    const hb = document.getElementById('hamburger');
+    nav.classList.toggle('open');
+    hb.classList.toggle('open');
+  }
+
+  function closeMobileNav() {
+    document.getElementById('mobile-nav').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
   }
 </script>
 
